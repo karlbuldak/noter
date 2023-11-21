@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class Note {
     private int id;
     private String author;
-    private String date;
+    private String date = Utils.returnCurrentLocalDateTime();
     private String content;
+    private String slug = Utils.generateRandomSlug(6);
 
 }

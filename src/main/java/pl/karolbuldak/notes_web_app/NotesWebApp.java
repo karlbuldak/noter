@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NotesWebApp {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(NotesWebApp.class, args);
+//		String test = Utils.generateRandomSlug(6);
+//		System.out.print(test);
 	}
 
 }
