@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <title>Notes App</title>
     <link rel="stylesheet" href="styles/style.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="index.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/h9g8j5qd5wap3iov2k5sify0p509xo5wj5y31g00jhxpm5cd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
-<body id="app">
+<body>
 <h1>DODAJ SWOJĄ NOTATKĘ</h1>
 <div>
-    <form id="note-form">
-        <input type="text" id="author-input" placeholder="Wprowadź autora">
-        <input type="text" id="note-input" placeholder="Wprowadź notatkę">
-        <button type="button" id="add-note-button">Dodaj notatkę</button>
-    </form>
+    <textarea id="tiny"></textarea>
 </div>
+<script>
+    tinymce.init({
+        selector: 'textarea#tiny',
+        skin: "bootstrap"
+    });
+</script>
 <h1>LISTA NOTATEK</h1>
 <div id="notes-list">
 </div>
