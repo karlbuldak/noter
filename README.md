@@ -15,7 +15,11 @@
 2. Install the required dependencies and set up the database.
 3. Run the application locally or deploy it to a server.
 
-## Technologies Used
+## Backend Technologies Used
 - Java
 - Spring Boot
 - Spring JDBC
+## Frontend Technologies Used
+- Vue
+- Vue router
+- Axios
