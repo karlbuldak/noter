@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.karolbuldak</groupId>
-	<artifactId>notes_web_app</artifactId>
+	<artifactId>noter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>notes_web_app</name>
 	<description>Simple note-taking application</description>
