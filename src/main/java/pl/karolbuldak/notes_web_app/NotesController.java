@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notes")
+@RequestMapping("/api")
 public class NotesController {
 
     @Autowired
