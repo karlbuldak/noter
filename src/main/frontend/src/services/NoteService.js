@@ -14,6 +14,9 @@ class NoteService{
             })
     
     }
+    saveNote(){
+        axios.put(`${NOTES_API_BASE_URL}`, tinymce.get("editor").getContent())
+    }
 }
 
 export default new NoteService()
