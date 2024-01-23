@@ -1,0 +1,199 @@
+<template>
+  <h1>Noter - Edit your note</h1>
+  <div v-if="noteData">
+    <form @submit.prevent="editAndShowNote">
+      <div>
+        <label for="author">Edit authors name:</label>
+        <br>
+        <input :placeholder="[[ noteData.author ]]" type="text" id="author" v-model="post.author" />
+      </div>
+      <div>
+        <label for="content">Edit your Note:</label>
+        <br>
+        <textarea :placeholder="[[ noteData.content ]]" type="text" id="content" v-model="post.content" />
+      </div>
+      <br>
+      <button class="button">Save note</button>
+    </form>
+    <br>
+    <button class="button" id="delete" @click="deleteNote">Delete note</button>
+  </div>
+  <div  v-else>
+    <h1>We are sorry, we couldn't find your note. Try again, or...</h1>
+    <button @click="NewNote" class="button">Make new note</button>
+  </div>
+  <Footer />
+
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  import NoteService from '../services/NoteService'
+  import Swal from 'sweetalert2'
+  import Footer from '@/components/Footer.vue';
+
+  const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+  
+  
+  export default {
+  components:{
+    Footer
+  },
+    name: 'EditNoteView',
+    data() {
+      return {
+        id: this.$route.params.slug,
+        noteData: this.data,
+        post: {
+          author: '',
+          content: '',
+        }
+      };
+    },
+    methods: {
+    deleteNote(){
+      Swal.fire({
+        title: "Are you sure you want to delete this note?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(this.apiURL, this.$route.params.slug);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your note has been deleted. Redirecting to homepage",
+            icon: "success"
+          });
+          this.$router.push(`/`);
+        }
+      });
+    },
+    patchNote() {
+      const promise = axios.patch(this.apiURL, this.post);
+      const dataPromise = promise.then((response) => response.data);
+      return dataPromise;
+  },
+    editAndShowNote() {
+      this.patchNote()
+        .then(data => {
+          const slug = data.slug;
+          this.$router.push(`/note/${this.$route.params.slug}`);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    NewNote(){
+            this.$router.push(`/`);
+        }
+  },
+  mounted() {
+    this.apiURL = `http://localhost:8080/api/note/${this.$route.params.slug}`;
+    NoteService.getNote(this.$route.params.slug)
+        .then(data => {
+                this.noteData = data;
+            })
+            .catch(error => {
+                console.error(error);
+            })
+  }
+  }
+  </script>
+  <style>
+  h2#swal2-title
+      {
+         font-size: 24px;
+         font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        color:theme('colors.metal');
+      }
+      div#swal2-html-container{
+         font-size: 16px;
+         font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+         color: theme('colors.metal');
+      }
+  #delete{
+    background-color: #dc3545;
+    color: #fefefa;
+  }
+
+  #author{
+    width: 15%;
+    height: 20px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+  }
+  textarea {
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    height:300px;
+    width: 50%;
+  }
+  
+  label{
+    font-size:20px;
+    
+  }
+  
+  .button {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+  
+  .button:hover,
+  .button:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  
+  .button:hover {
+    transform: translateY(-1px);
+  }
+  
+  .button:active {
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }
+  </style>

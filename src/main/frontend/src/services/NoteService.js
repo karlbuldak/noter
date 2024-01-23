@@ -1,22 +1,20 @@
 import axios from "axios";
 
-const NOTES_API_BASE_URL = 'http://localhost:8080/api/'
+const API_BASE_URL = 'http://localhost:8080/api/note/'
 
 class NoteService{
-    getNote(slug){
-        return axios.get(`${NOTES_API_BASE_URL}${slug}`)
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => {
-                console.error(error);
-                throw error;
-            })
-    
+    async getNote(slug){
+        try {
+        const response = await axios.get(`${API_BASE_URL}${slug}`);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     }
-    saveNote(){
-        axios.put(`${NOTES_API_BASE_URL}`, tinymce.get("editor").getContent())
-    }
+    NewNote(){
+      this.$router.push(`/`);
+  }
 }
 
 export default new NoteService()

@@ -1,17 +1,26 @@
 <template>
   <div class="home">
     <h1>Welcome to Noter</h1>
-    <p>Take your note, and share it with friends!</p>
+    <h2>Take your note, and share it with friends!</h2>
   </div>
-  <NoteEditor />
+  <MakeNewNote />
 </template>
 
 <script>
-import NoteEditor from '@/components/NoteEditor.vue';
+import MakeNewNote from '@/components/MakeNewNote.vue';
 
 export default {
   components: {
-    NoteEditor
+    MakeNewNote
   }
 }
 </script>
+
+<style>
+h1{
+  font-size: 40px;
+}
+h2{
+  font-weight: normal;
+}
+</style>

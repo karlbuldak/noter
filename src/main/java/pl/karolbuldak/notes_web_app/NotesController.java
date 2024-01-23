@@ -4,23 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
 public class NotesController {
 
     @Autowired
     NoteRepository noteRepository;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<Note> getAll() {
         return noteRepository.getAll();
     }
 
-    @GetMapping("/{slug}")
+    @GetMapping("/note/{slug}")
     public ResponseEntity<Note> getBySlug(@PathVariable("slug") String slug) {
         try {
             Note note = noteRepository.getBySlug(slug);
@@ -29,8 +30,7 @@ public class NotesController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    @PostMapping("")
+    @PostMapping("/note-create")
     public ResponseEntity<Note> addNote(@RequestBody Note note) {
         int result = noteRepository.saveNote(note);
         if (result == 201) {
@@ -40,7 +40,7 @@ public class NotesController {
         }
     }
 
-    @PutMapping("/{slug}")
+    @PutMapping("/note/{slug}")
     public ResponseEntity<Note> update(@PathVariable("slug") String slug, @RequestBody Note updatedNote) {
         Note note = noteRepository.getBySlug(updatedNote.getSlug());
 
@@ -55,7 +55,7 @@ public class NotesController {
         }
     }
 
-    @PatchMapping("/{slug}")
+    @PatchMapping("/note/{slug}")
     public ResponseEntity<Note> partiallyUpdate(@PathVariable("slug") String slug, @RequestBody Note updatedNote) {
         Note note = noteRepository.getBySlug(slug);
         if (note != null) {
@@ -69,7 +69,7 @@ public class NotesController {
         }
     }
 
-    @DeleteMapping("/{slug}")
+    @DeleteMapping("/note/{slug}")
     public ResponseEntity<Void> delete(@PathVariable("slug") String slug) {
         int result = noteRepository.deleteBySlug(slug);
         if (result == 1) {
