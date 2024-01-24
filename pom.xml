@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -11,11 +12,18 @@
 	<groupId>pl.karolbuldak</groupId>
 	<artifactId>noter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>notes_web_app</name>
+	<name>noter_web_app</name>
 	<description>Simple note-taking application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>Github repository</name>
+			<url>https://maven.pkg.github.com/karlbuldak/noter</url>
+		</repository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>com.github.java-json-tools</groupId>
@@ -64,5 +72,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

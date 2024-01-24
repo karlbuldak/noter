@@ -11,8 +11,12 @@ import java.util.List;
 
 @Repository
 public class NoteRepository {
-    @Autowired
+    final
     JdbcTemplate jdbcTemplate;
+
+    public NoteRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Note> getAll() {
         return jdbcTemplate.query("SELECT id, author, content, date FROM note",
