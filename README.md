@@ -1,5 +1,7 @@
 # NOTER
 
+**PROJECT PRESENTATION VIDEO** [click](https://youtu.be/es3fWIRK5T8)
+
 **NOTER** is a Java Spring-based web application that allows users to manage and organize their notes. It provides a simple and intuitive interface for creating, updating, and deleting notes. The application leverages Spring Boot for the backend, making it easy to deploy and scale.
 
 ## Key Features
